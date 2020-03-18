@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | JavaScript: 使用 ES6 特性实现真正的 Reflect</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/javascript-reflect.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/javascript-reflect"/>
+<updated>2018-05-21T17:19:39.000Z</updated>
+<id>javascript-reflect</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>JavaScript: 使用 ES6 特性实现真正的 Reflect</title>
+<link href="https://yuuno.cc/articles/javascript-reflect"/>
+<id>javascript-reflect</id>
+<published>2018-05-21T17:19:39.000Z</published>
+<updated>2018-05-21T17:19:39.000Z</updated>
+<content type="html"><![CDATA[<blockquote><p>启发问题: 源Topic已经移除</p></blockquote><h3>题记</h3><p>无聊之中看到这个题目, 问题中有人使用了 <code>eval</code> 来解决『获取函数中的变量名』的问题，但如果我们想获取当前 scope 下的变量名呢? 这就变得非常复杂。于是这里就提出一个解决方案，使得对于所有类型都可以在任何地方实现自身的 reflect。</p><h3>解决过程</h3><p>先贴代码：</p><pre><code class="language-javascript">function extending(c, v) {    return v.identifier === "" ? v : new class extends c {        constructor(...props) {super(props); this.identifier = "";}    }(v);}function define(key, value) {    this[key] = extending(value.constructor, value);    this[key].identifier = Math.random();    window._identifiers = {...window._identifiers};    window._identifiers[this[key].identifier] = key;    return value;}function refetch (value) {    return window._identifiers[value.identifier];}</code></pre><p>实现思路是这样的。</p><p>JavaScript 存在 <code>muitable</code> 和 <code>immutable</code> 的两类变量，为了给变量设立全局可查找的 <code>identifier</code>，最高效的做法就是继承原本的数据类型并且增加一个 identifier 属性。这样，我们就可以通过变量独特的 <code>identifier</code> 来追回变量的名字，实现反射。</p><p>使用方法如下：</p><pre><code class="language-javascript">// var a = 1; 用以下代码替换，也可以在当前 scope 中声明变量 a> define("a", 1);&#x3C; 1> console.log(a); //我们可以看到 在控制台中打出的 1，数据类型为 Number&#x3C; Number{1}> refetch(a); //返回字符串 "a" 表示当前变量的名字为 "a"&#x3C; "a"</code></pre><h3>后记</h3><p>虽然以上的方法没有完美地运用在所有情况中。比如依赖于 <code>window</code> 这个全局 <code>object</code>，还有会和 <code>uglify</code> 插件严重冲突。（在上面的例子中即可体现）。但这确实也给出了另一种，在大多数情况中都能实现的可行方案。</p><p>以上</p>]]></content>
+<summary type="html">
+启发问题:源Topic已经移除,题记,无聊之中看到这个题目,问题中有人使用了,eval,来解决『获取
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+</feed>

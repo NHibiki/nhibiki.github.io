@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | AudioStream: 使用 Go 和 icecast 制作自己的 web 广播流</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/using-go-and-icecast-to-make-qqmusic-broadcast.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/using-go-and-icecast-to-make-qqmusic-broadcast"/>
+<updated>2018-12-19T11:45:51.000Z</updated>
+<id>using-go-and-icecast-to-make-qqmusic-broadcast</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>AudioStream: 使用 Go 和 icecast 制作自己的 web 广播流</title>
+<link href="https://yuuno.cc/articles/using-go-and-icecast-to-make-qqmusic-broadcast"/>
+<id>using-go-and-icecast-to-make-qqmusic-broadcast</id>
+<published>2018-12-19T11:45:51.000Z</published>
+<updated>2018-12-19T11:45:51.000Z</updated>
+<content type="html"><![CDATA[<h3>前言</h3><p>好久没有更新技术博文了，一方面是因为随着接的活越来越多，写的代码越来越多，研究新事物的时间也就越来越少。另一方面，由于我的技术栈逐渐趋于稳定，我可能需要把更多的时间花在研究，或者最新的科技上，而不能整体把弄一些“我已经熟知的领域”了。（虽然我明白对很多人而言，<em>stick to one</em> 是更好的选择，不过嘛，我就是一个不折腾不开心的人 QwQ）</p><p>于是，在工作/学习闲暇的时间，（其实是期末考试的空隙）写了这篇小短文，讲讲我最近<em>无聊</em>的玩意儿 -- <em>sCast</em> 一个使用 QQ音乐 为音乐源的 网络音乐流 实现方法。</p><h3>简介</h3><p>首先，什么是<em>网络音乐流</em>？我给的定义是，一种在线实时音乐 <em>stream</em>。这样，我只需要一个 <em>url</em> 就可以在任何地方播放一个 <em>歌单</em>。而不需要下载这个播放器，下载哪个播放器，而且，随时同步。</p><p>其实，一年前，我已经有过类似的研究：<a href="https://yuuno.cc/articles/combine-ice-with-python">【AudioStream: 用 Python 建立自己的音乐流】</a>。在那篇文章中，我使用了 <em>python</em>，<em>libshout</em>，和 <em>icecase</em> 来完成一个静态文件目录的音乐流。</p><p>这是一个很好的开始，但是终究不是最好的解决方法。因为，维护一个静态文件目录就代表，维护成本非常大 -- 500首音乐就需要占用 <em>6GB</em> 空间（如果按照<em>320kbps</em>的<em>mpeg</em>文件来算）。迁移，筛选，都是一个巨大的问题。</p><p>所以就有的 <em>sCast</em> 的诞生。</p><h3>分析</h3><p>首先选择技术栈，我一开始的偏好为：<em>Docker</em> - <em>Alpine3.8</em> - [<em>Go(musl)</em> + <em>libshout</em> + <em>ffmpeg</em> + <em>icecast</em>]。</p><p>这看似是一个非常清晰的结构，但是制作音乐流服务器的过程，其实挺令人不快的。因为，实现逻辑虽然清晰，但却遇到了很多“伪版权”问题（即不合理的版权逻辑问题）。所以在写代码的时候重做了很多次，并且变得很复杂 ...</p><p>首先，一开始我选择的并不是QQ音乐，而是网易云音乐。但是在搜遍所有的网页，<em>Github</em> 的每一个角落，发现现有的 <em>API</em> 都失效了。我都打算放弃了，却注意到，有一个用 <em>nodejs</em> 写的 <em>API</em> 服务还在维护中<a href="#appendix">1</a>，而且，并没有人提 <em>issue</em>。于是我意识到，应该不是 <em>API</em> 失效，而是我的姿势不对。于是我把 <em>nodejs</em> 项目中的代码翻译成了 <em>Go</em>。然而，等待我的，又是一个失败。</p><p>我觉得很奇怪，没道理 <em>Go</em> 的 <em>request</em> 和 <em>node</em> 的 <em>request</em> 不一样啊！难道是我下了华强北的 <em>Go</em>？（开玩笑的）于是，我干脆把这个 <em>nodejs</em> 的版本 <em>clone</em> 下来跑了下，确实也不成功（呼，至少我的 Go 没问题 :)。那天晚上在睡觉的时候我猛然想到会不会是网易 <em>API</em> 用了 <em>geoip</em>，把我屏蔽了（。这个点子让我兴奋了一晚上，第二天连懒觉都没睡就又试了下。果然！开了台阿里云国内代理，一下子就拿到了 <em>url</em>。</p><p>其实我应该早点想到。毕竟写 <em>API</em> 的这些人都在局域网内，咱的情况，好像还没有人遇到过 2333。</p><p>成功虽然是成功了，但却有违我的初衷 -- 那这样我岂不是要维护国内阿里云服务器？开什么玩笑，<em>5M</em> 的带宽只跑一个这么小的服务，还要备案？于是，我尝试这能否只用代理请求 <em>API</em>，而不架代理下载歌曲。结果很现实：失败。</p><p>咸鱼了两天后，我还不死心，又想试试 QQ：您网易不行，不代表其他音乐服务商就不行啊！这次我学乖了，先不写代码，看看 api 能否走通。发现，QQ就很笨，只有 <em>API</em> 做了 <em>geoip</em> 过滤，音乐存储服务器并没有。这就意味着，我可以随便开一家国内的虚拟主机，扔个 <em>API</em> 上去，反正流量不大。在国外的 <em>stream</em> 服务器通过国内的 <em>API</em> 服务器拿到数据，再进行缓存，（转换格式，）切 <em>chunk</em>，推流。这样甚至逃过了每次听过都要走代理的限制，非常省力。</p><h3>开发</h3><p><em>API</em> 的开发过程我就不讲了，毕竟不过就是几个 <em>requests</em> + <em>redis</em> 缓存。Go 在这些方面非常优秀，又快又省内存，一个 <em>docker image</em> <em>6MB</em> 不到（比 <em>python</em> 安装文件都小好几倍 :) 开玩笑的，业务不同，应用场景不同，无可对比性）</p><p>具体讲的是推流。</p><p>首先，我们需要用到一个库：<em>libshout</em>，这是 <em>icecast</em> 实现的一个 <em>C Library</em>，用于实现给 <em>icecast</em> 推流。既然我们用的是 <em>Go</em>，那就自然会提到 <em>Go</em> 与 <em>C</em> 联调的优越性：bind 一下，就完全解决了。（当然这里我们用到了一个 5年前 的历史库 <em>go-libshout</em><a href="#appendix">2</a>）基本的用法非常清晰（这里建议直接看源码，个人觉得他的示例代码还不如源码容易理解 2333）</p><p>然后，我们只需要用 <code>http.Get</code> 方法，把 <code>resp.Body</code> 推入初始化好的 <code>chan []byte</code> 就好了。</p><p>不过，因为考虑到使用的 QQ音乐 <em>API</em> 不是所有歌都有 <em>mp3</em> （访问 <em>M800....mp3</em> 有的歌曲会 <em>404</em>），稳妥的方案是获取 <em>m4a</em> 格式，然后再转换为 <em>mp3</em> 推流。</p><p>所以，我们更改之前直接推 <em>binary</em> 的方法，我们用 <code>io.Copy</code> 把文件缓存下来，再调用 <em>ffmpeg</em> 进行转码。（这里其实也有人说可以直接用 <em>ffmpeg</em> 推，但是鉴于之后我还想写一个 <em>ws</em> 的信息流，所以就不采用此方法，尽可能用 Go 实现推流）</p><p>这时候，遇到了一个问题 - -。好好的 <em>mp3</em> 在推流的时候居然报错了：</p><pre><code class="language-sh">something went wrong: -4</code></pre><p>查看源码后，发现是 <em>stream disconnected error</em>，百思不得其解。搜了大量的 <em>Google</em> 后才了解到，<em>icecast</em> 会自动关闭一段时间没有推任何东西的链接，至于这个<em>一段时间</em>是多久，官方也没有说 2333。但是他们推荐即便播放任何东西，也要推空音频数据来维持链接。</p><p>我当然懒得找空音频，于是，只能调整代码策略。在全局加个 <em>flag</em>，当 <em>go routine</em> 成功转码第一个文件之后再启动 <em>stream</em>。</p><p>至此，完美结束。</p><p>以上</p><h3>附录 {#appendix}</h3><ol><li><a href="https://github.com/Binaryify/NeteaseCloudMusicApi">https://github.com/Binaryify/NeteaseCloudMusicApi</a></li><li><a href="https://github.com/systemfreund/go-libshout">https://github.com/systemfreund/go-libshout</a></li></ol>]]></content>
+<summary type="html">
+前言,好久没有更新技术博文了，一方面是因为随着接的活越来越多，写的代码越来越多，研究新事物的时间也就
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Music" scheme="https://yuuno.cc/tags/Music"/>
+<category term="Golang" scheme="https://yuuno.cc/tags/Golang"/>
+</entry>
+</feed>

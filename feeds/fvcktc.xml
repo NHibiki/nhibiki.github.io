@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | 杂记: 腾讯学生机注册脚本</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/fvcktc.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/fvcktc"/>
+<updated>2017-01-09T14:37:23.000Z</updated>
+<id>fvcktc</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>杂记: 腾讯学生机注册脚本</title>
+<link href="https://yuuno.cc/articles/fvcktc"/>
+<id>fvcktc</id>
+<published>2017-01-09T14:37:23.000Z</published>
+<updated>2017-01-09T14:37:23.000Z</updated>
+<content type="html"><![CDATA[<blockquote><p>前景摘要：2016年12月开始，马总把学生优惠取消了，唯有已经购买学生机的学生可以通过疯狂签到获取9.9元每月的续费权利。因为響喵非常需要一台国内的机器做中转和核心服务器（用来监控和同步其他服务器。所以并不想把这个机会放弃掉//</p></blockquote><p> 虽然，国内除了阿里云之外，还有腾讯云有学生优惠。但因为響喵一直拒绝注册学信网，导致腾讯死活不给我通过学生认证。最近通过特殊的Py方式，成功获得了学生认证。当然，也就可以凭借这个认证去抢“1元VPS”和“CN域名”了。</p><p> 但当我Google企鹅学生点读机的时候，发现有一亿人在抱怨200名额一天太抠门，机会太难抢了。鉴于響喵平时不完游戏，而且非常洁身自好，手速并不快TAT，于是我就一直在想怎么抢这个优惠（</p><p> 看某蛤乎上有童鞋吐槽，抢了几个世纪都没抢到企鹅学生点读机，为此居然去淘宝花16RMB购买代抢服务，我真的被深深震惊了。于是，决意写一个js脚本试试运气。</p><h3>FvckTC</h3><p>首先，来到页面，Option+Command+I调出Inspect，发现抢主机不过是一个JQuery Post，连refresh都不加【这分明就是引诱我犯罪233</p><p>手写脚本在console直接执行..</p><pre><code class="language-javascript">// Get Tencent Student Redeemvar getThread = null;var timeInterval = 20;var getCount = 0;if (!getThread) {    getThread = setInterval(() => {        if ($("button[hotrep='qcact.campus.getVoucherBtn']")[0].disabled) {            $("button[hotrep='qcact.campus.getVoucherBtn']").attr("disabled",false);        }        $("button[hotrep='qcact.campus.getVoucherBtn']").click();        if ($(".J-close")) {            $(".J-close").click();        }        console.log("Already Tried: " + (++getCount) + " Times.");    }, timeInterval);}</code></pre><p>脚本下载：[测试服务器已下线]</p><p>校准Mac时间，在11:59:30左右refresh一下页面，执行脚本【如果这个脚本使您的浏览器炸了，请把<code>timeInterval</code>调大】，一发入魂，直接获得代金券。（由此，明天我去试试抢la域名，虽然我对中国的域名代理商并不感兴趣，但似乎TC愿意非常诚恳地提供转移码，那我就也不去太计较了。【设置自建的防垃圾邮箱，阿里一次性小号，匿名信息就好（</p><h3>后续</h3><p>入账的是一个64元代金券和25元代金券，分别可以在服务区和域名上使用。</p><p>以上</p>]]></content>
+<summary type="html">
+前景摘要：2016年12月开始，马总把学生优惠取消了，唯有已经购买学生机的学生可以通过疯狂签到获取9
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+</feed>

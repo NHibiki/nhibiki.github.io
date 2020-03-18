@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta id="viewport" name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Slinkv4">
+
+    <title>Slink Share</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
+    <link href="../slink/style.css" rel="stylesheet">
+    <style>
+        #afterSubmit {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="color:#4cccff;">Slinkv4 Share</h1>
+        <p class="small">A Powerful Realtime Share.</p>
+
+        <div class="innercont">
+            <form id="slinkform" method="POST">
+                <textarea id="snipbar" style="border-radius:1em;resize: none;" name="url" type="text" value=""
+                    placeholder="code" class="input form-control"></textarea>
+            </form>
+        </div>
+        <p class="foot">Slinkv4 Share Powered By
+            <a href="https://yuuno.cc">NHibiki</a>.</p>
+    </div>
+    <div id="snackbar" class="snackbar snackbar-hide">
+        <p></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js">
+    </script>
+</body>
+
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.6.min.js"></script>
+<script>
+    (function () {
+
+        let id = Math.floor(Math.random() * 1e9);
+        let channel = document.location.search
+            .substr(1)
+            .split("&")
+            .filter(r => r && r.includes("="))
+            .reduce((origin, newone) => {
+                let n = newone.split("=");
+                return (n[0] === "c" && n[1]) ? n[1] : origin
+            }, "sshare");
+
+        var pubnub = new PubNub({
+            subscribeKey: 'sub-c-bbed53b2-d6fd-11e8-abf2-1e598b800e69',
+            publishKey: 'pub-c-63f22988-a376-4c74-9e1e-314b8a43ed4f',
+            ssl: true
+        });
+        pubnub.addListener({
+            message: function (message) {
+                if (message.message.id == id) return;
+                $("#snipbar").val(message.message.data);
+            }
+        });
+        pubnub.subscribe({
+            channels: [channel]
+        });
+
+        $("#snipbar").on("input", $.debounce(150, () => {
+            pubnub.publish({
+                channel,
+                message: {
+                    id,
+                    data: $("#snipbar").val()
+                }
+            });
+        }));
+
+        pubnub.history({
+            channel,
+            count: 1
+        }, (status, response) => {
+            if (response && response.messages && response.messages[0]) {
+                $("#snipbar").val(response.messages[0].entry.data);
+            }
+        });
+
+    })();
+</script>
+
+</html>

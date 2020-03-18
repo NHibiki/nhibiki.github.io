@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Linux: 安装万能下载工具 MlDonkey</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/install-mldonkey.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/install-mldonkey"/>
+<updated>2016-07-15T09:54:37.000Z</updated>
+<id>install-mldonkey</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Linux: 安装万能下载工具 MlDonkey</title>
+<link href="https://yuuno.cc/articles/install-mldonkey"/>
+<id>install-mldonkey</id>
+<published>2016-07-15T09:54:37.000Z</published>
+<updated>2016-07-15T09:54:37.000Z</updated>
+<content type="html"><![CDATA[<h3>简介</h3><p>说起Linux中的文件下载，在我们的脑海中立刻浮现的可能是 wget / aria2 。这些可谓是 Storige Server 的必备工具了。但是，他们还是有一个缺陷。wget只能下载直连，这就不多说了。aria2的下载范围更广一些，但它也只能解析torrent，没办法下载电驴等其他p2p协议下的文件。</p><p>图形系统下的工具我们就不提了，我们需要的是一个命令行+Web管理的下载工具。于是乎，MlDonkey就浮现在我们眼前了。</p><p>MlDonkey不是一个新项目，我倒Sourceforge看了一下，最早Push的时间是在 2006-01-05。最近一次更新是在 2014-03-22。但从我个人的体验上看，这个项目还是不错的。</p><h3>安装</h3><p>走了不少弯路，就像一开始，我看到网上有很多人说，直接用静态编译版（static）就好了，结果就出现了莫名其妙的错误。【谁说的！给我打一顿 TAT</p><p>筋疲力竭的我决定还是自己编译2014年的源代码QAQ</p><p>首先，你要确保自己的服务器中有 gcc / g++ / make / wget / zlib 存在，如果没有，请安装。（给出的是Ubuntu的命令，其他Linux请自行修改Repository指令）</p><pre><code class="language-bash">apt-get update &#x26;&#x26; apt-get install -y gcc g++ make wget zlib1g-dev</code></pre><p>然后，下载“最新”的MlDonkey，解压。编译，安装</p><blockquote><p>重要提示：zlib一般Linux中都不自带，一般情况下都要手动安装</p></blockquote><pre><code class="language-bash">wget https://sourceforge.net/projects/mldonkey/files/mldonkey/3.1.5/mldonkey-3.1.5.tar.bz2//下载tar -jxvf mldonkey-3.1.5.tar.bz2//解压cd mldonkey-3.1.5./configure//配置，中间它会要求下载一个附加库，Y回车即可make//编译make install//安装</code></pre><p>至此，MlDonkey安装结束。</p><p>你可以直接</p><pre><code class="language-bash">mlnet</code></pre><p>如果安装成功，那么最后一行指令应该是 [dMain] Core started</p><h3>配置</h3><p>Ctrl + C 结束进程</p><p>进入配置目录</p><pre><code class="language-bash">cd ~/.mldonkey</code></pre><p>编辑downloads.ini (vim/vi/或其他都可以)</p><p>找到 allowed_ips = ["127.0.0.1";]  改为 allowed_ips = ["0.0.0.0/0";] </p><p>在42%处找到 shared_directories 【在vim中，你也可以使用查找命令 “/shared_directories”】直接跳转到该位置</p><p>把两个incoming的dirname改为自己想要的目录，这里我就设置成了“/home/files”</p><p>修改后的片段如下：</p><pre><code class="language-ini">shared_directories = [{  dirname = shared  strategy = all_files  priority = 0};{  dirname = "/home/files"  strategy = incoming_files  priority = 0};{  dirname = "/home/files"  strategy = incoming_directories  priority = 0};]</code></pre><p>保存，mkdir建立设置的目录。然后，你就可以用screen命令启动mlnet了</p><p>进入 <a href="http://%E4%BD%A0%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8ip:4080">http://你的服务器ip:4080</a></p><p>在命令栏中输入 useradd admin 你的密码，这样，以后用web访问，就需要登陆了</p><p>至此，教程结束</p><p>以上</p>]]></content>
+<summary type="html">
+简介,说起Linux中的文件下载，在我们的脑海中立刻浮现的可能是wget/aria2。这些可谓是St
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+<category term="Download" scheme="https://yuuno.cc/tags/Download"/>
+</entry>
+</feed>

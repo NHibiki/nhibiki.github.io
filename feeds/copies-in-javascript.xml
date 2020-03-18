@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | JavaScript: Js 中深拷贝的探讨</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/copies-in-javascript.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/copies-in-javascript"/>
+<updated>2019-03-01T14:27:22.000Z</updated>
+<id>copies-in-javascript</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>JavaScript: Js 中深拷贝的探讨</title>
+<link href="https://yuuno.cc/articles/copies-in-javascript"/>
+<id>copies-in-javascript</id>
+<published>2019-03-01T14:27:22.000Z</published>
+<updated>2019-03-01T14:27:22.000Z</updated>
+<content type="html"><![CDATA[<h3>前情提要</h3><p>最近在继续加深自己对 <em>Javascript</em> 的理解（各种方面），主要通过复习 MDN 和 查看很多大佬的博客为主。发现一个非常 universal 的问题：他们都提到了 <em>deepCopy</em>。</p><p>我们知道，在这种脚本语言里面，拷贝大多都是 reference，而并非内存上的拷贝（手法类似于 C 或者 Go 里面的指针拷贝）。很多语言都给出了“官方”解决方案：如 <em>Python</em> 有一个 <em>copy</em> 库，下面存在 <code>copy.copy</code>（浅拷贝）和 <code>copy.deepcopy</code>（深拷贝）的方法。但是，在 <em>Javascript</em>中，官方并没有提供这类工具库。一方面觉得可能是因为 ECMA 懒，但这种指责确实是“站着说话不腰疼”。自己觉得更有可能的原因是另一方面：<em>Javascript</em>的对象都是基于原型的（prototype），一股脑的深拷贝会存在很大的依赖问题。（但其实这也不是借口，比较可以从 constructor 重建，只是浪费资源罢了）</p><p>网上探讨这个问题的文章很多，但很多都给出了非常 <em>dummy</em> 的 code（假到不用跑就知道有 bug...）。所以这篇文章诞生，但是，毕竟所有技术文章都是有时效性的，所以读者在借鉴这里的 <em>code</em> 的时候，请先观察下我的攥稿日期，以免造成不必要的麻烦。</p><h3>分析</h3><p>首先，在 <em>Javascript</em> 中新建一个 Object 不是一个难事，但很杂乱。已知的新建方法数不胜数：</p><ol><li>直接 <code>{}</code></li><li>使用 <code>Object.create()</code> 创建</li><li>使用 <code>class</code> 构造原型，并 <code>new 出来</code></li><li>使用 <code>function</code> 构造上下文，并在外部定义原型</li><li>...</li></ol><p>总之是很多很多的。</p><p>这个时候，很多人已经发现网上流行的 <em>JSON</em> 大法多么不适了 -- <em>JSON</em> 支持的 <em>datatype</em> 实在少的可怜：</p><ol><li>Number</li><li>Object（其实是 <code>HashMap&#x3C;String, Object></code>，这里包括 null）</li><li>Boolean</li><li>Array</li></ol><p>就这样 LOL。它连 <code>function</code>，<code>Map</code> 与 <code>Set</code> 都不支持，更不要说 <code>__proto__</code> 或者被单独定义过的（<code>Object.defineProperty</code>）<em>Object</em> 了。</p><p>另外，细心的朋友可能会发现，除此之外 <em>JSON</em> 还有一个坑：对于如果 <em>Object</em> 内部出现圆环（如下），则就会 <em>stringify</em> 出错：</p><pre><code class="language-js">a = {};a.a = a;JSON.stringify(a); // ERROR</code></pre><h3>着手</h3><p>基本的思路还是老样子：递归拷贝。这里偷懒了，直接给出源代码。</p><p>当然，这份源代码虽然考虑了很多情况，但并不代表它一定能 cover all。还是得具体问题具体分析（比如，如果涉及到 <strong>Vue</strong> 中的 <em>Observer</em> 模型，这种拷贝就会出问题）。</p><pre><code class="language-js">function deepCopy(target) {    /* initialize, using hashmap to record recursive properties */    const hashMap = new Map();    /* where deepcopy happens */    const doCopy = function doCopy(_target) {        if (_target === null) {            /* check if it is null */            return null;        } else if (typeof _target !== 'object') {            /* is value variable */            return _target;        } else if (hashMap.has(_target)) {            /* check if it is recurssive properties */            return hashMap.get(_target);        } else {            const returns = new _target.constructor();            hashMap.set(_target, returns);            if (_target instanceof Array) {                /* is numeric-iterable array or list */                Object.assign(returns, _target.map(doCopy));            } else if (_target instanceof Set) {                /* is Set datatype */                doCopy([..._target]).forEach(v => returns.add(v));            } else {                /* is other object datatype */                if (_target instanceof Map) {                    const iter = _target.keys();                    let curr;                    while (!(curr = iter.next()).done) {                        returns.set(doCopy(curr.value), doCopy(_target.get(curr.value)));                    }                } else {                    /* otherwise, extends from prototype */                    const temp = Object.create({});                    temp.__proto__ = _target.__proto__;                    /* copy other properties */                    Object.entries(_target).forEach(([key, value]) => {                        temp[key] = doCopy(value);                    });                    Object.assign(returns, temp);                }            }            return returns;        }    };    return doCopy(target);}</code></pre><p>这段代码中最头疼的就是 <em>recurrsive variables</em>，一开始想通过 <code>Map</code> 实现查重，并用<code>Object.assign</code> 一锅端，直接更新栈上所有的 <em>reference</em>。但是遇到了我之前所说的原型问题（<em>prototype</em>）相反的问题。因为很多自定义（或者官方定义的）都采用了局部变量，并没有统一的方法实现自身的 <code>clone()</code> 导致了，外部根本无法复制。（比如 <code>Set</code> 和 <code>Map</code>）解决方法是从新一条一条添加数据。</p><p>但是，如果是用户自定义的私有变量（闭包变量），就完全没有办法解决了。</p><p>这里放上一个测试案例：</p><pre><code class="language-js">// defineconst a = {    c: "hello",    d: function() { console.log(this.c); }};a.a = a;// testconst _a = deepCopy(a);a.c = "world";a.d();// > "world"_a.d();// > "hello"_a.a === _a;// > true</code></pre><h3>小结</h3><p>至此，对于深拷贝的研究就告一段落了，有其他想法或者改进的朋友可以在下面留言。</p><p>对于总结出来的终极解决方法：还是请每个程序猿在实现自己的类的时候，良心写😂，增加一个 <code>clone()</code> 方法。</p><p>以上</p>]]></content>
+<summary type="html">
+前情提要,最近在继续加深自己对,Javascript,的理解（各种方面），主要通过复习MDN和查看很
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+<category term="DeepCopy" scheme="https://yuuno.cc/tags/DeepCopy"/>
+</entry>
+</feed>

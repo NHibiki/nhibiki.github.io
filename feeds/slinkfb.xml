@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Slink: 造一個個人使用的&#39;文件床&#39;</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/slinkfb.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/slinkfb"/>
+<updated>2017-12-12T20:12:13.000Z</updated>
+<id>slinkfb</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Slink: 造一個個人使用的&#39;文件床&#39;</title>
+<link href="https://yuuno.cc/articles/slinkfb"/>
+<id>slinkfb</id>
+<published>2017-12-12T20:12:13.000Z</published>
+<updated>2017-12-12T20:12:13.000Z</updated>
+<content type="html"><![CDATA[<blockquote><p>首先先纠正一点啦! 这个个人使用不代表没有开放, 因为服务器资源有限, 也没有精力搞 CDN, 应该算是比较简陋啦. 如果大家想尝试一下也不是不可以.</p></blockquote><p>Mac 已經有本地版本啦, 可以直接拖入直接上傳 mBed for Mac: 测试服务器已下线 (失效)</p><h3>首先</h3><h4>什么是"文件床"?</h4><p>一个类似于图床, 但不拘泥于贴图格式, 而是支持所有范用类型文件格式的"文件床". (当然, 如果只上传图片的话还是可以看作是一个图床的).</p><p>它的优点在于, 可以托管任意格式的数据, 如 音频, 小视频, 图片, 文档 等等. 后端服务器会根据上传的数据进行 MINE 类型分析, 并且在下载时, 返回对应 Content-Type 的文件. 使用起来非常自由.</p><p>但是不得不提到它的缺点: 因为不拘泥于图片, 因此文件安全性能, 文件合法性, 和服务器负载都遭受挑战. </p><p>对于安全性能: 服务器需要隔离一些可执行脚本或者文件 (这个方法很多, 也很好解决. 有 Linux 权限控制 / 随机文件名 / 存储数据前段分开 等方法)</p><p>对于文件合法性: 这个对于个人而言比较困难, 毕竟如果是图片, 大不了点开看看 (emmm 虽然危险). 既然是广义上的 Binary 文件, 这个只能交给病毒库解决. 但是, 由于涉及隐私问题, 我 不应该 也 没有权利 访问文件内部信息, 最后的解决措施只能是, 如果有反馈就删掉.</p><p>对于服务器负载: 因为文件的大小以及处理方式是可控的, 而 Binary 文件并不是这样. 于是最直接的方法是限制传输大小, 并对碎片化的文件根据上次访问时间距离现在时间的长短, 进行合并压缩 (这里采用 tar 因为直接提取单个文件很方便). 太久远没访问的.... 那就删了吧 (๑•̀ㅂ•́)و✧ 溜....</p><h4>为什么要自己搭一个"文件床"?</h4><p>因为现在的图床系统, 嘛, 非常的 "难看". 各种广告. 虽然说, 给你免费使用加点盈利措施是应该的, 但是那些广告比较 "难看", 像百度那种砖块广告, 淘宝那种百叶窗广告真的太碍眼了.</p><p>emmm 上面只是怄气的时候说说, emmmm....</p><p>真正的原因是, 国内没有吾看得上的, 或者说, 国内找不到能用的 "文件床" 服务. 虽然如果追溯到 "图床" 的产生原因, "文件床" 确实不应该存在 ("图床"只是解决社交软件对图片的限制而产生的第三方解决办法). 但是, "文件床" 的必要性还是有的. 毕竟你不希望每次临时传一个文件都要 scp 到服务器, 或者登陆某某 cloudStorage 再创建分享链接吧 (关键的关键是, 这些 cloudStorage 大部分都不支持直链, 严重限制了文件使用方式)</p><p>设想, 如果你希望上传一首音乐, 使得可以把它 embed 到你的 twitter / facebook page 或者 某些 blog 中. 那难不成你还自己搭一个静态服务器? 或者使用 github 托管 / 对象存储这种繁琐的方法?</p><p>显然, "文件床" 是一个比较适合这些情况的便捷服务. 你只要把文件拖进网页中, 它就会自动将其上传, 并生成一个可以直接调用的链接.</p><h3>SlinkFB (mBed)</h3><p>我将最新写的 "文件床" 服务开源与 Github, 集成于 Slink (是的, 短链生成, 数据系统是由 Slink 托管的).</p><p>链接 不在此 , emmmm 自己找去 n(<em>≧▽≦</em>)n.</p><p>至于服务后端, 因为还在开发 CDN 和 文件版本管理 (完成, 但还没有投入使用, 毕竟一开始就限定文件过期不太好✧(≖ ◡ ≖✿)), 也考虑到安全性的问题, 没有完全开源, 但是, 有的用就好了呀 QwQ.</p><p>系统的大致思路是:</p><h4>上传</h4><ul><li>用户上传文件.</li><li>网页前端初步分析, 确认文件大小在合理范围内.</li><li>Ajax 上传文件.</li><li>后端校验文件大小, 类型, 接通小红伞病毒库确认文件安全性.</li><li>计算出长文件名 (32位的62字符串[0-9,a-z,A-Z]).</li><li>向 Slink 请求短链, 存储文件信息到 Slink.</li><li>推送文件至 CDN 节点 和 存储服务器 Cluster.</li></ul><h4>维护</h4><ul><li>接通 Slink 筛选出3个时间段的文件 (最近,  烧酒 稍久, 很久).</li><li>将 烧酒 的文件从 CDN 上移除.</li><li>将很久的文件直接从存储服务器 Cluster 上抹除.</li><li>将文件信息从 Slink 中删除.</li></ul><h4>访问</h4><ul><li>前端获取 Slink 短链.</li><li>后端联系 Slink 服务器获取文件信息和文件长名.</li><li>根据时间段执行如下操作.</li><li><ul><li>对于最近的文件, 直接交由 CDN 处理.</li></ul></li><li><ul><li>对于 烧酒 的文件, 将文件从存储服务器 Cluster 转存到与存储服务器位于同一内部网络的 CDN A, 把用户请求递交于 CDN A 后, 再将文件推送到其他 CDN 服务器.</li></ul></li><li><ul><li>对于不存在或者很久的文件, 直接返回 404错误 或者 json 错误信息.</li></ul></li><li>更新 Slink 上的最近文件访问时间.</li></ul><p>以上</p>]]></content>
+<summary type="html">
+首先先纠正一点啦!这个个人使用不代表没有开放,因为服务器资源有限,也没有精力搞CDN,应该算是比较简
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Slink" scheme="https://yuuno.cc/tags/Slink"/>
+</entry>
+</feed>

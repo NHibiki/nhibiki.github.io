@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | ITP: Accessibility in Web</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/accessibility-in-web.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/accessibility-in-web"/>
+<updated>2018-10-09T13:21:10.000Z</updated>
+<id>accessibility-in-web</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>ITP: Accessibility in Web</title>
+<link href="https://yuuno.cc/articles/accessibility-in-web"/>
+<id>accessibility-in-web</id>
+<published>2018-10-09T13:21:10.000Z</published>
+<updated>2018-10-09T13:21:10.000Z</updated>
+<content type="html"><![CDATA[<h3>Intro</h3><p>Internet is a global web that connects people. It provides services or information for everyone in the world. So a web should be well prepared for anyone to get access to it. A standard for a <em>accessible</em> page is also standardized by MDN group (Mozilla) in its <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility">Accessibility Page</a>. By using some web design or html attributions, we can make the webpage clear and easy for most of people.</p><p>In the <strong>attempt for accessibility</strong>, I mainly focus on two projects - <a href="https://natureofcode.com/book/">Nature of Code Book Page</a> and <em>a School PWA Project</em> (since it is not released yet, so I just hide the URL to that webapp). During the research, I find it interesting that accessibility is <strong>hard to test</strong> if we see it as our origin aspect. That means, to test the accessibility for a web, we need to <em>pretend</em> to stand on the aspect of people who actually need this function. And I well talk about my research about <em>nature of code book</em> in the following paragraph:</p><h3>Test with Color Contrast</h3><p>Firstly, by using <a href="https://www.paciellogroup.com/resources/contrastanalyser/">Color Contrast Analyser</a> (since we cannot even tell the difference of color contrast with our eyes usually), I test the primary(#D82F5C), secondary(#61D2EA) and highlight(#0019B2) colors of <em>nature of code book</em> page.</p><p>Following image is the result of testing of primary color(#D82F5C):</p><p><img src="https://yuuno.cc/images/accessibility-1.png" alt="Accessilibity 1"></p><p>We can see from the result, the color is perfect besides non-title regular test. But it is fine since the page only use this color with <strong>bold text</strong> or behind <strong>title</strong> division.</p><p>And the two other colors: secondary color(#61D2EA) and highlight color(#0019B2):</p><p><img src="https://yuuno.cc/images/accessibility-2.png" alt="Accessilibity 2"></p><p><img src="https://yuuno.cc/images/accessibility-3.png" alt="Accessilibity 3"></p><p>I find it very interesting that the button color(#61D2EA) does not pass even one test in color contract, but if user interacts with the web by using <strong>tab</strong> or <strong>VoiceOver</strong> control, the secondary color transits to the highlight color(#0019B2) which totally passes all the tests.</p><p>So in this case, the button is friendly for <em>Accessibility Tools</em> user to get full support on the page.</p><h3>Test with Tab</h3><p>Another test is using <em>Tab</em> key to test the web.</p><p>In this test, I dropped mouse and only use <em>tab</em> and <em>space/enter</em> to interact with the web. And find an issue that <a href="https://github.com/shiffman/natureofcode.com/pull/30">some hidden buttons in the page might confusing users</a>.</p><p>So I made a pull request to correct this issue. To show directly the button if user uses <em>tab</em> or other <em>accessibility tool</em> to surf the page.</p>]]></content>
+<summary type="html">
+Intro,Internetisaglobalwebthatconnectspeople.Itpro
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+</feed>

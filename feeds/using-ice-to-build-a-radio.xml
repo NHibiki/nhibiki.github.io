@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | AudioStream: 使用 ICECAST 和 ICES 配合Nodejs做一个 Audio Stream</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/using-ice-to-build-a-radio.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/using-ice-to-build-a-radio"/>
+<updated>2017-08-01T20:21:19.000Z</updated>
+<id>using-ice-to-build-a-radio</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>AudioStream: 使用 ICECAST 和 ICES 配合Nodejs做一个 Audio Stream</title>
+<link href="https://yuuno.cc/articles/using-ice-to-build-a-radio"/>
+<id>using-ice-to-build-a-radio</id>
+<published>2017-08-01T20:21:19.000Z</published>
+<updated>2017-08-01T20:21:19.000Z</updated>
+<content type="html"><![CDATA[<blockquote><p>所谓的 Audio Stream 就是一个音频流媒体服务，可以让连接到流媒体的用户听到一样的东西。</p></blockquote><h3>简介</h3><p>虽然 socket.io 已经提供了很好的流媒体方案，但是鉴于 socket.io流 本身更适用于视频或者画面流，对音频流不支持，于是就有了下面这篇文章。在 Centos 7 中，搭建一个 ICE 系列产品的生产环境。</p><p>用到的工具：</p><blockquote><p>yum wget tar gcc gcc-c++ make</p></blockquote><h3>安装方法</h3><p>先说在前面，如果不想安装，可以使用我已经封装好的 docker，但是因为这个 docker 并不是用于发布的，因此没有精简，所有的工具都在里面 23333，甚至于包括了 yum 的 repo缓存。完整的大小是 600 MB，docker 压缩之后是 207 MB。</p><h4>安装</h4><p>先安装必要库文件，这些都是在默认 repo 中的，如果有强迫症，也可以自行编译。</p><pre><code class="language-bash">yum install -y libxslt-devel libogg-devel libvorbis-devel libcurl-devel libshout-devel</code></pre><p>然后再安装我们需要用到的一些软件</p><p>首先是 ICECAST，是提供流媒体服务的服务器。</p><pre><code class="language-bash">wget http://downloads.xiph.org/releases/icecast/icecast-2.4.3.tar.gztar zxvf icecast-2.4.3.tar.gzrm icecast-2.4.3.tar.gz -rfcd icecast-2.4.3</code></pre><p>常规安装方法，顺便指定一下 prefix</p><pre><code class="language-bash">./configure --prefix=/usr/local/icecastmake &#x26;&#x26; make installcd ..</code></pre><p>接下来是 LAME 库，一个解码 mpeg3 文件的东西，安装方法同前</p><pre><code class="language-bash">wget https://downloads.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gztar zxvf lame-3.99.5.tar.gzrm lame-3.99.5.tar.gz -rfcd lame-3.99.5./configure --prefix=/usr/local/lamemake &#x26;&#x26; make installcd ..</code></pre><p>最后一个是 ICES，也是 ICE 系列产品，用于向 STREAM 推送文件</p><pre><code class="language-bash">wget http://downloads.us.xiph.org/releases/ices/ices-0.4.tar.gztar zxvf ices-0.4.tar.gzrm ices-0.4.tar.gz -rfcd ices-0.4</code></pre><p>安装 ICE 时要指定一下 lame 的目录，不然会搜不到</p><pre><code class="language-bash">./configure --prefix=/usr/local/ices --with-lame=/usr/local/lamemake &#x26;&#x26; make installcd ..</code></pre><p>连接文件</p><pre><code class="language-bash">ln /usr/local/ices/bin/ices /usr/bin/icesln /usr/local/icecast/bin/icecast /usr/bin/icecast</code></pre><p>这样，所有的依赖以及软件都装完了。</p><h4>配置</h4><p>因为 ICECAST 的权限限制，我们尽量不要用在 chroot 用户组的用户运行 STREAM，因此，新建用户</p><pre><code class="language-bash">groupadd nekobcuseradd nekobc -m -g nekobc -G users,wheel,audio -s /bin/bashpasswd nekobcmkdir /home/nekobcchown nekobc:nekobc /home/nekobc</code></pre><p>下面要配置一下 ICECAST 和 ICE 的文件，创建音乐文件目录</p><pre><code class="language-bash">cp /usr/local/icecast/etc/icecast.xml ./icecast.xmlcp /usr/local/ices/etc/ices.conf.dist ./ices.xmlmkdir music</code></pre><p>其中 <code>icecast.xml</code> 文件中要修改的有如下部分：</p><pre><code class="language-xml">&#x3C;source-password>&#x3C;/source-password> # 给 ICES 的密码&#x3C;relay-password>&#x3C;/relay-password>   # 可以不管，建议改掉初始密码&#x3C;admin-user>&#x3C;/admin-user>           # 网络管理用户名&#x3C;admin-password>&#x3C;/admin-password>   # 网络管理密码&#x3C;logdir>/home/nekobc/log&#x3C;/logdir>&#x3C;listen-socket>  &#x3C;port>8010&#x3C;/port>  &#x3C;bind-address>0.0.0.0&#x3C;/bind-address>  &#x3C;mountpoint>/stream&#x3C;/mountpoint>&#x3C;/listen-socket># 启用以下配置，把注释拿掉&#x3C;changeowner>  &#x3C;user>nekobc&#x3C;/user>  &#x3C;group>nekobc&#x3C;/group>&#x3C;/changeowner></code></pre><p>然后是 <code>ices.xml</code> 文件的设置：</p><pre><code class="language-xml">&#x3C;File>list.txt&#x3C;/File>      # 指定列表文件&#x3C;Randomize>0&#x3C;/Randomize>   # 随机播放&#x3C;Background>1&#x3C;/Background> # 后台运行&#x3C;Hostname>localhost&#x3C;/Hostname>&#x3C;Port>8010&#x3C;/Port>&#x3C;Password>&#x3C;/Password>&#x3C;Mountpoint>/stream&#x3C;/Mountpoint>&#x3C;Public>1&#x3C;/Public>                           # 要和 ICSCAST 一致</code></pre><p>其他的描述信息可以更具自己的需求改</p><p>最后，整理音乐列表，可以用这个命令</p><pre><code class="language-bash">find / -name "*.mp3" > /home/nekobc/list.txt</code></pre><p>启动服务</p><pre><code class="language-bash">icecast -b -c icecast.xmlices -c ices.xml</code></pre><p>浏览器里面访问 <code>http://{Your_Url}:8010/stream</code> 就可以了。</p><p>以上</p>]]></content>
+<summary type="html">
+所谓的AudioStream就是一个音频流媒体服务，可以让连接到流媒体的用户听到一样的东西。,简介,
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="AudioStream" scheme="https://yuuno.cc/tags/AudioStream"/>
+<category term="Music" scheme="https://yuuno.cc/tags/Music"/>
+</entry>
+</feed>

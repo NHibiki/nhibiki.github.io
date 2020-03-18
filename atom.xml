@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/atom.xml" rel="self"/>
+<link href="https://yuuno.cc/"/>
+<updated>2019-12-28T14:16:54.484Z</updated>
+<id>https://yuuno.cc/</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Diary: I, End of 2019</title>
+<link href="https://yuuno.cc/articles/diary-i-end-of-2019"/>
+<id>diary-i-end-of-2019</id>
+<published>2019-12-28T14:16:54.484Z</published>
+<updated>2019-12-28T14:16:54.484Z</updated>
+<summary type="html">
+首先呢，先要感慨下：“哇，马上就要2020年了呢！”21世纪的第二个十年又双叒叕接近了尾声，不得不感
+</summary>
+<category term="Diary" scheme="https://yuuno.cc/categories/Diary"/>
+<category term="Notes" scheme="https://yuuno.cc/tags/Notes"/>
+<category term="Tools" scheme="https://yuuno.cc/tags/Tools"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+</entry>
+<entry>
+<title>Rust: The first attempt to ownership</title>
+<link href="https://yuuno.cc/articles/rust-the-first-attempt-to-ownership"/>
+<id>rust-the-first-attempt-to-ownership</id>
+<published>2019-12-18T04:31:28.959Z</published>
+<updated>2019-12-18T04:31:28.959Z</updated>
+<summary type="html">
+上一篇,Rust:BriefIntrotoSAFE,前言,这篇文章是继第一篇初探Rust之后的续集。
+</summary>
+<category term="Notes" scheme="https://yuuno.cc/categories/Notes"/>
+<category term="Rust" scheme="https://yuuno.cc/tags/Rust"/>
+<category term="Notes" scheme="https://yuuno.cc/tags/Notes"/>
+</entry>
+<entry>
+<title>Rust: Brief Intro to SAFE</title>
+<link href="https://yuuno.cc/articles/rust-brief-intro-to-safe"/>
+<id>rust-brief-intro-to-safe</id>
+<published>2019-12-15T01:54:06.136Z</published>
+<updated>2019-12-15T01:54:06.136Z</updated>
+<summary type="html">
+简介,首先，这篇文章仅仅是我在学习中的一些见解，若有错误，望在评论区指正。,学习Rust的起因仅仅是
+</summary>
+<category term="Notes" scheme="https://yuuno.cc/categories/Notes"/>
+<category term="Rust" scheme="https://yuuno.cc/tags/Rust"/>
+<category term="Notes" scheme="https://yuuno.cc/tags/Notes"/>
+</entry>
+<entry>
+<title>Networking: VMESS + APP Engine 应急攻略</title>
+<link href="https://yuuno.cc/articles/vmess-app-engine"/>
+<id>vmess-app-engine</id>
+<published>2019-09-17T10:19:55.982Z</published>
+<updated>2019-09-17T10:19:55.982Z</updated>
+<summary type="html">
+前言,由于一些政策因素，这篇文章的某些用词会比较隐晦，望谅解。,在国内有时候会有非常尴尬的一幕，自己
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="VMESS" scheme="https://yuuno.cc/tags/VMESS"/>
+<category term="VPS" scheme="https://yuuno.cc/tags/VPS"/>
+<category term="Networking" scheme="https://yuuno.cc/tags/Networking"/>
+</entry>
+<entry>
+<title>JavaScript: Js 中深拷贝的探讨</title>
+<link href="https://yuuno.cc/articles/copies-in-javascript"/>
+<id>copies-in-javascript</id>
+<published>2019-03-01T14:27:22.000Z</published>
+<updated>2019-03-01T14:27:22.000Z</updated>
+<summary type="html">
+前情提要,最近在继续加深自己对,Javascript,的理解（各种方面），主要通过复习MDN和查看很
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+<category term="DeepCopy" scheme="https://yuuno.cc/tags/DeepCopy"/>
+</entry>
+<entry>
+<title>AudioStream: 使用 Go 和 icecast 制作自己的 web 广播流</title>
+<link href="https://yuuno.cc/articles/using-go-and-icecast-to-make-qqmusic-broadcast"/>
+<id>using-go-and-icecast-to-make-qqmusic-broadcast</id>
+<published>2018-12-19T11:45:51.000Z</published>
+<updated>2018-12-19T11:45:51.000Z</updated>
+<summary type="html">
+前言,好久没有更新技术博文了，一方面是因为随着接的活越来越多，写的代码越来越多，研究新事物的时间也就
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Music" scheme="https://yuuno.cc/tags/Music"/>
+<category term="Golang" scheme="https://yuuno.cc/tags/Golang"/>
+</entry>
+<entry>
+<title>ITP: Accessibility in Web</title>
+<link href="https://yuuno.cc/articles/accessibility-in-web"/>
+<id>accessibility-in-web</id>
+<published>2018-10-09T13:21:10.000Z</published>
+<updated>2018-10-09T13:21:10.000Z</updated>
+<summary type="html">
+Intro,Internetisaglobalwebthatconnectspeople.Itpro
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+<entry>
+<title>ITP: Do we need to clean the environment of Open Source Community</title>
+<link href="https://yuuno.cc/articles/do-we-need-to-clean-oss-env"/>
+<id>do-we-need-to-clean-oss-env</id>
+<published>2018-09-24T22:45:00.000Z</published>
+<updated>2018-09-24T22:45:00.000Z</updated>
+<summary type="html">
+The,Article,revealswhatI&#39;vebeenannoyingaboutthesey
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+<entry>
+<title>ITP: Why would people engage in Open Source</title>
+<link href="https://yuuno.cc/articles/why-would-people-engage-in-os"/>
+<id>why-would-people-engage-in-os</id>
+<published>2018-09-16T20:35:16.000Z</published>
+<updated>2018-09-16T20:35:16.000Z</updated>
+<summary type="html">
+Afterreading,ProcessingandFLOSS,,Ifeltrefreshedabo
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+<entry>
+<title>ITP: What Open Soure Means to Me</title>
+<link href="https://yuuno.cc/articles/what-open-source-means-to-me"/>
+<id>what-open-source-means-to-me</id>
+<published>2018-09-06T16:25:22.000Z</published>
+<updated>2018-09-06T16:25:22.000Z</updated>
+<summary type="html">
+Thisarticleiswrittenforbothmyself&amp;thereflectionass
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+<entry>
+<title>JavaScript: 当 forEach 遇上 await 的坑</title>
+<link href="https://yuuno.cc/articles/javascript-await-foreach"/>
+<id>javascript-await-foreach</id>
+<published>2018-06-22T22:49:22.000Z</published>
+<updated>2018-06-22T22:49:22.000Z</updated>
+<summary type="html">
+前言,当JavaScript进入ES6+时代后，它的语法糖和性能的不凡表现（相比于其他的脚本语言），
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+<entry>
+<title>JavaScript: 使用 ES6 特性实现真正的 Reflect</title>
+<link href="https://yuuno.cc/articles/javascript-reflect"/>
+<id>javascript-reflect</id>
+<published>2018-05-21T17:19:39.000Z</published>
+<updated>2018-05-21T17:19:39.000Z</updated>
+<summary type="html">
+启发问题:源Topic已经移除,题记,无聊之中看到这个题目,问题中有人使用了,eval,来解决『获取
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+<entry>
+<title>WildCard: 来自 Let&#39;s Encrypt 的无料野卡申请指南</title>
+<link href="https://yuuno.cc/articles/letsencrypt-wildcard"/>
+<id>letsencrypt-wildcard</id>
+<published>2018-03-16T22:56:16.000Z</published>
+<updated>2018-03-16T22:56:16.000Z</updated>
+<summary type="html">
+16Mar2018更新,附上Alpine中申请WildCard方法,题记,盼了半年的Let&#39;sEnc
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="SSL" scheme="https://yuuno.cc/tags/SSL"/>
+</entry>
+<entry>
+<title>mBed: 文件床服务器下行问题以及解决方案</title>
+<link href="https://yuuno.cc/articles/mbed-cdn"/>
+<id>mbed-cdn</id>
+<published>2018-03-15T14:07:10.000Z</published>
+<updated>2018-03-15T14:07:10.000Z</updated>
+<summary type="html">
+问题由来,前些日子写了一个公开使用的&quot;文件床&quot;--mBed(或者叫萌喵也可以w).它的地址是,(测试
+</summary>
+<category term="Diary" scheme="https://yuuno.cc/categories/Diary"/>
+<category term="CDN" scheme="https://yuuno.cc/tags/CDN"/>
+</entry>
+<entry>
+<title>Git: 使用大文件版本管理系統 git-lfs</title>
+<link href="https://yuuno.cc/articles/git-lfs"/>
+<id>git-lfs</id>
+<published>2017-12-18T19:07:10.000Z</published>
+<updated>2017-12-18T19:07:10.000Z</updated>
+<summary type="html">
+簡介,首先先介紹一下什麼是git-lfs.它的全稱是GitLargeFileStorage.用一句話
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Git" scheme="https://yuuno.cc/tags/Git"/>
+</entry>
+<entry>
+<title>Slink: 造一個個人使用的&#39;文件床&#39;</title>
+<link href="https://yuuno.cc/articles/slinkfb"/>
+<id>slinkfb</id>
+<published>2017-12-12T20:12:13.000Z</published>
+<updated>2017-12-12T20:12:13.000Z</updated>
+<summary type="html">
+首先先纠正一点啦!这个个人使用不代表没有开放,因为服务器资源有限,也没有精力搞CDN,应该算是比较简
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Slink" scheme="https://yuuno.cc/tags/Slink"/>
+</entry>
+<entry>
+<title>Linux: 给Centos 7.3装Node/Redis踩坑记</title>
+<link href="https://yuuno.cc/articles/install-redis-on-centos"/>
+<id>install-redis-on-centos</id>
+<published>2017-08-30T19:32:12.000Z</published>
+<updated>2017-08-30T19:32:12.000Z</updated>
+<summary type="html">
+前言·吐槽,真的是气得要死，本来装个Redis是非常简单的事情，但是RedHat偏要增加我的工作量，
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+<category term="Nodejs" scheme="https://yuuno.cc/tags/Nodejs"/>
+</entry>
+<entry>
+<title>AudioStream: 用 Python 建立自己的音乐流</title>
+<link href="https://yuuno.cc/articles/combine-ice-with-python"/>
+<id>combine-ice-with-python</id>
+<published>2017-08-02T14:51:32.000Z</published>
+<updated>2017-08-02T14:51:32.000Z</updated>
+<summary type="html">
+我发现这几天真的高产如母猪了（TAT好的，作为昨天研究的后续，今天碰到的问题很少，但是钉子很多。,&lt;
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="AudioStream" scheme="https://yuuno.cc/tags/AudioStream"/>
+<category term="Music" scheme="https://yuuno.cc/tags/Music"/>
+</entry>
+<entry>
+<title>AudioStream: 使用 ICECAST 和 ICES 配合Nodejs做一个 Audio Stream</title>
+<link href="https://yuuno.cc/articles/using-ice-to-build-a-radio"/>
+<id>using-ice-to-build-a-radio</id>
+<published>2017-08-01T20:21:19.000Z</published>
+<updated>2017-08-01T20:21:19.000Z</updated>
+<summary type="html">
+所谓的AudioStream就是一个音频流媒体服务，可以让连接到流媒体的用户听到一样的东西。,简介,
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="AudioStream" scheme="https://yuuno.cc/tags/AudioStream"/>
+<category term="Music" scheme="https://yuuno.cc/tags/Music"/>
+</entry>
+<entry>
+<title>Gentoo: 給Aliyun的Gentoo升级</title>
+<link href="https://yuuno.cc/articles/update-aliyun-gentoo"/>
+<id>update-aliyun-gentoo</id>
+<published>2017-01-18T14:37:23.000Z</published>
+<updated>2017-01-18T14:37:23.000Z</updated>
+<summary type="html">
+已经下定决心要好好玩玩Linux了。虽然我并没有勇气格电脑装Linux（对于习惯Mac的人来说似乎不
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+<category term="Gentoo" scheme="https://yuuno.cc/tags/Gentoo"/>
+</entry>
+<entry>
+<title>杂记: 腾讯学生机注册脚本</title>
+<link href="https://yuuno.cc/articles/fvcktc"/>
+<id>fvcktc</id>
+<published>2017-01-09T14:37:23.000Z</published>
+<updated>2017-01-09T14:37:23.000Z</updated>
+<summary type="html">
+前景摘要：2016年12月开始，马总把学生优惠取消了，唯有已经购买学生机的学生可以通过疯狂签到获取9
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+<entry>
+<title>Node.js: Electron和坑</title>
+<link href="https://yuuno.cc/articles/electron"/>
+<id>electron</id>
+<published>2016-12-10T17:10:22.000Z</published>
+<updated>2016-12-10T17:10:22.000Z</updated>
+<summary type="html">
+关于Electron,我想我大概不用仔细介绍什么是Electron了。简单的说，Electron可以
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Electron" scheme="https://yuuno.cc/tags/Electron"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+<entry>
+<title>Linux: 安装万能下载工具 MlDonkey</title>
+<link href="https://yuuno.cc/articles/install-mldonkey"/>
+<id>install-mldonkey</id>
+<published>2016-07-15T09:54:37.000Z</published>
+<updated>2016-07-15T09:54:37.000Z</updated>
+<summary type="html">
+简介,说起Linux中的文件下载，在我们的脑海中立刻浮现的可能是wget/aria2。这些可谓是St
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+<category term="Download" scheme="https://yuuno.cc/tags/Download"/>
+</entry>
+<entry>
+<title>Links: Friend Links</title>
+<link href="https://yuuno.cc/articles/links"/>
+<id>links</id>
+<published>2015-01-01T00:00:00.000Z</published>
+<updated>2015-01-01T00:00:00.000Z</updated>
+<summary type="html">
+友链的另一个场所QwQ,基友,萌萌的小新喵,橙橙~橙汁喵,呆萌滴雅音宮羽,&lt;del&gt;,Néil-&gt;千
+</summary>
+<category term="Random" scheme="https://yuuno.cc/categories/Random"/>
+<category term="Links" scheme="https://yuuno.cc/tags/Links"/>
+</entry>
+</feed>

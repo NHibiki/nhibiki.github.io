@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Links: Friend Links</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/links.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/links"/>
+<updated>2015-01-01T00:00:00.000Z</updated>
+<id>links</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Links: Friend Links</title>
+<link href="https://yuuno.cc/articles/links"/>
+<id>links</id>
+<published>2015-01-01T00:00:00.000Z</published>
+<updated>2015-01-01T00:00:00.000Z</updated>
+<content type="html"><![CDATA[<blockquote><p>友链的另一个场所 QwQ</p></blockquote><h2>基友</h2><p><a href="https://xin.moe/">萌萌的小新喵</a></p><p><a href="https://touko.moe/">橙橙~橙汁喵</a></p><p><a href="https://www.imasane.moe/">呆萌滴雅音宮羽</a></p><p>Néil->千杉（位置丢失） <a href="!--https://nrechn.de/--">!--https://nrechn.de/--</a></p><h2>技术</h2><p><a href="https://www.tcdw.net">吐槽大王部落格</a></p><p><a href="https://blog.0xbbc.com/">0xBBC</a></p><p><a href="https://qwe7002.com">qwe7002</a></p><p><a href="https://www.nottres.com/">学生菊苣雲水遙</a></p><p><a href="http://dimpurr.com/">Dimpurr设计菊苣</a></p><p><a href="https://typeblog.net/">特殊嗜好的傲娇Cai</a></p><p><a href="http://cee.moe">Cee</a></p><p>毓彦（位置丢失） <a href="!--https://emiria.io/--">!--https://emiria.io/--</a></p><p>云羽桑~（位置丢失） <a href="!--https://oao.moe/--">!--https://oao.moe/--</a></p><p>樱喵~（位置丢失） <a href="!--http://sakuracat.com/--">!--http://sakuracat.com/--</a></p><p>Yuxuan Lin（位置丢失） <a href="!--http://radiationstu.cn--">!--http://radiationstu.cn--</a></p><h2>同学</h2><p><a href="https://rongyi.blog/">黑科技马云LER</a></p><p>以上</p>]]></content>
+<summary type="html">
+友链的另一个场所QwQ,基友,萌萌的小新喵,橙橙~橙汁喵,呆萌滴雅音宮羽,&lt;del&gt;,Néil-&gt;千
+</summary>
+<category term="Random" scheme="https://yuuno.cc/categories/Random"/>
+<category term="Links" scheme="https://yuuno.cc/tags/Links"/>
+</entry>
+</feed>

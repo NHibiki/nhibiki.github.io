@@ -1,0 +1,25 @@
+{
+  "name": "Yuuno Hibiki",
+  "alias": "NHibiki",
+  "mail": "<HIDDEN>",
+  "github": "NHibiki",
+  "infomation": {
+      "gender": "Unknown",
+      "born": "19**",
+      "livein": "NY, US"
+  },
+  "description": ["I am a self-assigned so-called code artist who treats code as a missionary of art pieces.",
+                  "I am an enthusiast of informatic interaction design and security and a beginner in blockchain."],
+  "school": ["Senior in New York University,", 
+             "Major in Interactive Media Arts & Computer Science,",
+             "Research in Network Information Security."],
+  "stacks": [ "TypeScript", "JavaScript", "Golang", "Dart 2", "Python", "Java" ],
+  "tools": [ "Gulp", "React", "Vue", "AWS", "Serverless", "Docker" ],
+  "jobs": [
+      { "name": "Alibaba", "position": "Frontend Developer" },
+      { "name": "ByteDance", "position": "Frontend Developer" },
+      { "name": "everiToken", "position": "evtScan / chain SDK developer" },
+      { "name": "NYU", "position": "Student Fullstack Developer" },
+      { "name": "Investarget", "position": "AI Researcher Intern" }
+  ]
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Networking: VMESS + APP Engine 应急攻略</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/vmess-app-engine.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/vmess-app-engine"/>
+<updated>2019-09-17T10:19:55.982Z</updated>
+<id>vmess-app-engine</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Networking: VMESS + APP Engine 应急攻略</title>
+<link href="https://yuuno.cc/articles/vmess-app-engine"/>
+<id>vmess-app-engine</id>
+<published>2019-09-17T10:19:55.982Z</published>
+<updated>2019-09-17T10:19:55.982Z</updated>
+<content type="html"><![CDATA[<h3>前言</h3><blockquote><p>由于一些政策因素，这篇文章的某些用词会比较隐晦，望谅解。</p></blockquote><p>在国内有时候会有非常尴尬的一幕，自己的机场开始跑路，导致线路更换不及时，少有稳定的链路等等。这时候，就需要换一家。（不要问我为什么不自己搭，烦，且没必要）。但是，有的时候因为自己懒，导致无可用线路之后才想到要换一家，然而，一般好的机场都会无法访问，且频繁更换域名（当然特别少众的除外）。这么一折腾下来，就好比断了药，想寻医又难于出门，非常难受。</p><p>于是，就需要给自己整一个高可用的工具，不需要它拥有很高的带宽很低的延迟，只要我在需要它的时候不掉链子即可。（当然最好是长时间免费的，毕竟我也不希望续费这么一个一年也不会用掉 100 MB 流量的玩意儿）。</p><h3>解决方案</h3><p>目前使自己『免隔离』的工具很多，比如双s，双sR，二代射线，特洛伊等等。（不要和我说特性检测，那种都是无用的吵架争辩，从结果来说只有通杀和非通杀两种结果）。因为是一个『长期高可用』的需求，所以前两者都不太稳。毕竟他们都有自己的协议，也就是说，我必须要续费一个 VPS 或者 开放权限的 docker 托管商。这意味着我的会为了 100MB 的流量每年支付至少20刀。这显然不是一个很好的方案。而对于后两者来说，他们都支持通用协议作为混淆的传输，比如 websocket/http，相较前两者，我只需要一个 app engine 就可以完成托管，支出比之前小很多。</p><p>于是，我就决定使用 arukas + cloudflare 的方案，为自己做一个零时的工具。（实测下来网速为 3.4Mbps 的下行，5.2Mbps 的上行，180ms 的延迟，确实只能应急用用了，刷个推都能急死人）</p><h3>动手</h3><p>因为自己从来没配置过 V一团糟，所以就做了小白，直接在 github 上搜索一键脚本 —— <a href="https://github.com/233boy/v2ray">233的杰作</a>。但是，他的脚本过度依赖于 selinux 以及 debain 和 redhat 系的包管理器，导致 docker 下错误百出。（这里不是在说他的脚本不好，只是比较 specific to particular OS）最终，我就打算自己做镜像。</p><p>原理很简单，我也不需要多用户，HTTP/2 之类的配置，就非常简单的 ws 到 80 端口就行。于是，我就写了 Dockerfile 自己下载指定版本的『二代射线』，然后在启动时检测是否传入环境变量 UUID，如果没有，就随机生成并输出在屏幕上。</p><p>对于我而言，我把它托管在了 arukas 上，并且加增了 cloudflare 做 TLS 转发。</p><p>值得注意的是，『二代射线』官方声明不支持 TLS 1.3，所以，如果想自己配置前端的需注意。</p><p>以上。</p>]]></content>
+<summary type="html">
+前言,由于一些政策因素，这篇文章的某些用词会比较隐晦，望谅解。,在国内有时候会有非常尴尬的一幕，自己
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="VMESS" scheme="https://yuuno.cc/tags/VMESS"/>
+<category term="VPS" scheme="https://yuuno.cc/tags/VPS"/>
+<category term="Networking" scheme="https://yuuno.cc/tags/Networking"/>
+</entry>
+</feed>

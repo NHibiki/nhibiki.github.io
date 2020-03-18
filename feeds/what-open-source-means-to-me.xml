@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | ITP: What Open Soure Means to Me</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/what-open-source-means-to-me.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/what-open-source-means-to-me"/>
+<updated>2018-09-06T16:25:22.000Z</updated>
+<id>what-open-source-means-to-me</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>ITP: What Open Soure Means to Me</title>
+<link href="https://yuuno.cc/articles/what-open-source-means-to-me"/>
+<id>what-open-source-means-to-me</id>
+<published>2018-09-06T16:25:22.000Z</published>
+<updated>2018-09-06T16:25:22.000Z</updated>
+<content type="html"><![CDATA[<p>This article is written for both myself &#x26; the reflection assignment for <a href="https://github.com/shiffman/Open-Source-Studio-ITP">ITP OSS Assignment #1</a>.</p><h3>Foreword</h3><p>Sorry about English written in this article (for this blog system yet does not have a translation engine), if you are a Chinese only subscriber, please jump off.</p><p>这是一篇纯英文文章（由于本博客还不具备实时翻译引擎），如果你只看得懂中文，请跳过此篇文章。</p><p>Open Source Community &#x26; Distribution is the first way and my most favourite way of team development in code I have ever joined. So, I consider this a really meaningful topic for me as most the <code>code</code> I've written are opened for public use.</p><p>Take a simple look at my <a href="https://github.com/NHibiki">Github</a> and my contribution blocks, I can have a clear mind about what I has been doing through out year. ( Yes, I bet almost every works I have done are deeply marked on this platform.</p><h3>Main Body</h3><p>When talking about Open Source, just look at the blog itself. Itself is an <a href="https://github.com/NHibiki/blog">open source blog</a> by an <a href="https://github.com/NHibiki/ReSlice">open source engine</a> written by myself in early this year.</p><p>The motivation for me to write/design my own blog is because the fact that my previous blog engine <a href="https://hexo.io">Hexo</a> would never fulfill my requirement to build a "PWA blog theme". (Here, PWA means Progressive Web App, a technology that can make your web experienced as native apps in some cases). So I decided to build a new blog web (app) with the powerful support of <a href="https://reactjs.org/">React</a> and <a href="https://material.io">Material Design</a>. (These two are also open sourced by Facebook and Google, one is js engine, and another is modern design pattern). So, in order to share my understand and thoughts on <code>modern blog</code>, I marked this blog as an open source project on Github under GPLv3 license. As many projects I participated in open source community, I do not feel it responsible that I should contribute anything from me, but I am always spurred by a feeling of passion to share my own point of view on the thing I have read or coded for.</p><p>This kind of feeling is a little different but most alike to the article <a href="https://medium.com/@kenjagan/what-does-open-source-even-mean-6bd47befe696">What Does “Open Source” Even Mean?</a> In this article the author did not know what to contribute at the beginning, but finally known contribution is a thing that might not related to how much or excellent the code you write, but can be a simple idea people come up with.</p><p>I highly agree with what is demostrated in this article about the definition of <code>Contribution</code>, and I qoute -</p><blockquote><p>And when I say “open source” right now, ..., and I still consider that a contribution even though it’s not a contribution to source code.</p></blockquote><p>For Open Source, we usually work together for a public software / hardware or a non-code service. Code is only a little part of it. As we all known, why do more and more companies are faithful to <code>A/B Testing</code>? Because mainkind's feeling are different. They should have different ideas on one same product. This theory can also be applied to Open Source Community. Since everyone has different ideas on a product, the best way for the product development is absolutely trying to take in more shiny points from those ideas! So that the new product can be borned suitably for more users.</p><p>Finally, Wish Open Source Everlasting!</p>]]></content>
+<summary type="html">
+Thisarticleiswrittenforbothmyself&amp;thereflectionass
+</summary>
+<category term="Essay" scheme="https://yuuno.cc/categories/Essay"/>
+<category term="Assignment" scheme="https://yuuno.cc/tags/Assignment"/>
+<category term="ITP" scheme="https://yuuno.cc/tags/ITP"/>
+</entry>
+</feed>

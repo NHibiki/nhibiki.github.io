@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Git: 使用大文件版本管理系統 git-lfs</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/git-lfs.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/git-lfs"/>
+<updated>2017-12-18T19:07:10.000Z</updated>
+<id>git-lfs</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Git: 使用大文件版本管理系統 git-lfs</title>
+<link href="https://yuuno.cc/articles/git-lfs"/>
+<id>git-lfs</id>
+<published>2017-12-18T19:07:10.000Z</published>
+<updated>2017-12-18T19:07:10.000Z</updated>
+<content type="html"><![CDATA[<h3>簡介</h3><p>首先先介紹一下什麼是 git-lfs. 它的全稱是 Git Large File Storage. 用一句話翻譯它的作用, 就是 git 對大文件或者 binary 文件的解決方案.</p><p>這是 git-lfs 的官方鏈接: <a href="https://git-lfs.github.com/">https://git-lfs.github.com/</a></p><p> 其中有 git 對 git-lfs 更加詳細的描述和解釋, 那我就不再多解釋這個工具啦 ~(≧▽≦)/~, 主要講一下安裝方法和使用體驗 (與坑).</p><h3>安裝</h3><p> 如果不怕麻煩的話, 可以直接下載官網的 binary 文件, <a href="https://git-lfs.github.com/">官網</a> 會有一個大大的 Download. ( 別告訴我你看不到 QAQ</p><p> 或者你可也以用 brew 等工具裝</p><pre><code class="language-bash">brew install git-lfs</code></pre><p>再或者下載 <a href="https://codeload.github.com/github/git-lfs/zip/master">源碼</a> 自行編譯, GitHub 託管地址是: <a href="https://github.com/git-lfs/git-lfs">https://github.com/git-lfs/git-lfs</a></p><p>安裝完成之後, 需要把它添加到 git 工具中.</p><pre><code class="language-bash">git lfs install</code></pre><p>如果只想對某幾個特定的 repo 開啟 lfs, 可以在項目目錄添加 --local 來局部安裝</p><pre><code class="language-bash">git lfs install --local</code></pre><p>至此, git-lfs 安裝完成</p><h3>使用方法</h3><p> git-lfs 的大致原理是在 commit 和 push 之前添加鉤子, 匹配提交的文件是否符合 lfs 的要求, 如果符合, 就從原本的 commit 和 push 中移除, 添加到 lfs 的上傳列表, 并用一個配置文件在原 repo 的位置中替換掉原文件.</p><p>所以, 首先我們要建立一個 git-lfs 匹配規則, 命令為 <code>git lfs track "SOMETHING"</code>. 比如, 我希望把所有項目中的 <code>wav</code> 文件和項目中 <code>/map/</code> 目錄下的所有文件添加到 lfs 而非 git repo, 我們只需要如下命令:</p><pre><code class="language-bash">git lfs track "*.wav"git lfs track "/map/"</code></pre><p>它的匹配規則和 <code>.gitignore</code> 類似, 添加完之後, 我們可以看到項目根目錄生成了 <code>.gitattributes</code> 文件. 這就是我們的 記錄文件. 除此以外, 我們還可以通過命令 <code>git lfs track</code> 查看目前添加的所有規則.</p><p>之後, 我們只需要常規地 <code>add</code>, <code>commit</code>, <code>push</code> 就行了. 被 track 的文件會自動被 git push 到單獨的 storage server.</p><h3>坑</h3><p>emmmm, 因為 GitHub 很摳門, 連嘗試的機會都不給我們, 明確不額外付費就 1KB 都不給, 吾只能用 bitbucket 來測試 git-lfs. 結果就遇到了坑.</p><p>首先, 如果 project 啟用了 lfs, 那麼就不能用傳統的方法 clone, 而需要  <code>git lfs clone ...</code>  才行, 不然, 我們會發現只能拉下來用於替換原本的大文件的那些配置文件.</p><p>除此之外, 單純的刪除那些被 commit 進入 lfs 的文件, 並不能將它從 remote repo 中刪除. (我不知道這是 bug 還是 emmm <code>New Feature</code>). 總之, 我只能單獨進入 bitbucket 的 lfs 管理界面才能刪除那些文件.</p><h3>總結</h3><p>總之, git 確實提出了一個大文件, 二進制文件嵌入 git project 的解決方案. 不過可以看出, 各大 git 版本管理平台對它的支持還不是特別到位. (如果之前那個 <code>bug</code> 真的是 <code>New Feature</code> , 那就說明它確實是非常不成熟了).</p><p>但是, 從它的效果來說, 也確實可以減少 git 倉庫對檢查大文件的壓力, 並且能夠將它從歷史版本中移除, 通過簡單的 sha256 code 就能讓 git 管理大文件的版本問題.</p><p>以上</p>]]></content>
+<summary type="html">
+簡介,首先先介紹一下什麼是git-lfs.它的全稱是GitLargeFileStorage.用一句話
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Git" scheme="https://yuuno.cc/tags/Git"/>
+</entry>
+</feed>

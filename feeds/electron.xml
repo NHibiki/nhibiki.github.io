@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Yuuno Blog | Node.js: Electron和坑</title>
+<icon>https://yuuno.cc//favicon.jpg</icon>
+<link href="https://yuuno.cc/feeds/electron.rss" rel="self"/>
+<link href="https://yuuno.cc/articles/electron"/>
+<updated>2016-12-10T17:10:22.000Z</updated>
+<id>electron</id>
+<author>
+<name>Yuuno Hibiki</name>
+</author>
+<generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Node.js: Electron和坑</title>
+<link href="https://yuuno.cc/articles/electron"/>
+<id>electron</id>
+<published>2016-12-10T17:10:22.000Z</published>
+<updated>2016-12-10T17:10:22.000Z</updated>
+<content type="html"><![CDATA[<h3>关于Electron</h3><p>我想我大概不用仔细介绍什么是Electron了。简单的说，Electron可以用Html，CSS，Javascript制作Cross Platform的Native APP。它使用Chromium和Nodejs作为解释器。</p><p>食用Electron之前，请保证自己的电脑</p><ul><li><p>连接到了国际广域网</p></li><li><p>拥有至少1G的存储空间</p></li><li><p>不是拖拉机级别的处理器和内存</p></li><li><p>至少1秒钟之内不会蓝屏</p></li><li><p>装有Node.js并且没有把Terminal/bash/cmd之类的删掉</p></li><li><p>其他...</p></li></ul><h3>首先是安装</h3><p>没装Nodejs的请自行安装....</p><p>最简单的方式是通过 <code>npm install -g electron</code> 来解决。</p><p>以下工具一起实用最佳：（以ヒビキ使用的Mac OS X为准）</p><ul><li><p><code>npm install -g electron-packager</code> -- 一个封装工具（可以把Chromium引擎和Nodejs与应用包装起来）</p></li><li><p><code>wget https://dl.winehq.org/wine-builds/macosx/i686/winehq-staging-1.9.23.pkg</code> -- For Darwin(OS X) Only，为了打包 win32 必须用到wine. 对于GNU/Liunx，请自行下载或者编译wine.</p><h3>创建最简单的应用</h3><h4>编辑命令</h4><p>通过 <code>npm init</code> 新建新的 manifest.json 文件。打开并在script后添加如下命令，修改后效果如下 - </p><pre><code class="language-javascript">"scripts": {   "test": "echo \"Error: no test specified\" &#x26;&#x26; exit 1",   "start": "electron .", //如果是不是-g方式安装，请改成 "start": "./node_modules/.bin/electron .",   "packager": "electron-packager ./ MyApp --out ./OutApp --overwrite --all --icon=./ico.icns" }，</code></pre><p>这就些命令可以通过 <code>npm run-script</code> 执行</p><p>对于 <code>"packager"</code> 的特殊说明：</p><p><code>./</code> Workdir</p><p><code>MyApp</code> 为显示的应用名</p><p><code>--out ./OutApp</code> 为输出目录  </p><p><code>--overwrite</code> 表示覆盖旧版本</p><p><code>--all</code> 为生成的 platform，all为全平台，当然你可以把它替换为 <code>--platform=darwin --arch=x64</code> 来限定平台（这个是x64的Max OS X）</p><p><code>--icon</code> 包图标</p></li></ul><blockquote><p>特殊说明：Max OS X 必须使用 icns 的专用图标格式， 其他的请使用 ico 格式。</p></blockquote><h4>入口脚本</h4><pre><code class="language-javascript">"use strict";const electron = require('electron');const {app} = electron;const {BrowserWindow} = electron;let win; // 这样可以保证当次脚本推出之后回收窗口function createWindow() {  win = new BrowserWindow({width: 600,                           height: 400,                           resizable: false,                           maximizable: false,                           alwaysOnTop: true,                           fullscreenable: false,                           title: "喵"                         });  win.loadURL(`file://${__dirname}/view/index.html`);  //win.webContents.openDevTools();  app.setName("喵");  win.on('closed', () => {    win = null;  });}app.on('ready', createWindow);app.on('window-all-closed', () => {  if (process.platform !== 'darwin') {    app.quit();  }});app.on('activate', () => {  if (win === null) {    createWindow();  }});</code></pre><p>然后，把你之前写的网页应用复制到 <code>./view</code> 下，保证入口是 <code>index.html</code> 就好啦！</p><h3>Electron的常用函数和坑</h3><h4>win 创建选项</h4><ul><li>'width'／'height' 宽度／高度</li><li>'title' 窗口标题</li><li>'alwaysOnTop' 是否永久置顶</li><li>'maximizable' 是否可最大化</li><li>'resizable' 是否可拉伸</li><li>'fullscreen'／'fullscreenable' 全屏显示／是否可以全屏（后者用于Mac OS）</li><li>'icon' 图标，（注意！！选项，只在Windows和Linux下生效，而且，它是窗口图标，不是应用图标QwQ）</li><li>'show' 是否显示（默认是True）</li><li>'closable' 是否可以关闭2333（对Linux无效）</li><li>'movable' 是否可以移动（对Linux无效）</li><li>'x'／'y' 初始化的窗口位置（默认是屏幕正当中）</li></ul><h4>win.on Listener</h4><ul><li>'resize' 窗口大小改变</li><li>'move' 窗口移动</li><li>'show' / 'hide' / 'focus' 窗口被显示／隐藏／鼠标或者Tab切换选中</li><li>'closed' 窗口关闭</li><li>'responsive' / 'unresponsive' 页面是否响应</li><li>还有很多参考<a href="http://electron.atom.io/docs/api/browser-window/">官方API</a></li></ul><h4>坑·javascript环境切换</h4><p>如果你发现你的非Nodejs部分的脚本无法运行那么请参考以下方法：</p><p>因为javascript是通过Nodejs执行，所以，一定要在 <code>&#x3C;script>&#x3C;/script></code> Tag 前后加入如下内容：</p><pre><code class="language-html">    &#x3C;script>if (typeof module === 'object') {window.module = module; module = undefined;}&#x3C;/script>    &#x3C;script src="........">&#x3C;/script>    &#x3C;script>if (window.module) module = window.module;&#x3C;/script></code></pre><p>因为在Nodejs执行页面Javascript时，极少数的JS会判断运行环境，所以我们要在运行页面脚本之前建立一个“虚拟”的页面环境，并在结束后还原Nodejs环境（神坑）</p><h4>参考资料</h4><ul><li><a href="http://electron.atom.io/docs/api/browser-window/">http://electron.atom.io/docs/api/browser-window/</a></li><li><a href="http://blog.csdn.net/sinat_25127047/article/details/51418682">http://blog.csdn.net/sinat_25127047/article/details/51418682</a></li><li><a href="http://stackoverflow.com/questions/31529772/how-to-set-app-icon-for-electron-atom-shell-app">http://stackoverflow.com/questions/31529772/how-to-set-app-icon-for-electron-atom-shell-app</a></li></ul><p>以上 ～</p>]]></content>
+<summary type="html">
+关于Electron,我想我大概不用仔细介绍什么是Electron了。简单的说，Electron可以
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Electron" scheme="https://yuuno.cc/tags/Electron"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+</entry>
+</feed>
