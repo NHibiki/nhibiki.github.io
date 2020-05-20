@@ -4,12 +4,26 @@
 <icon>https://yuuno.cc//favicon.jpg</icon>
 <link href="https://yuuno.cc/atom.xml" rel="self"/>
 <link href="https://yuuno.cc/"/>
-<updated>2019-12-28T14:16:54.484Z</updated>
+<updated>2020-05-20T18:45:54.484Z</updated>
 <id>https://yuuno.cc/</id>
 <author>
 <name>Yuuno Hibiki</name>
 </author>
 <generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Deno: The First Trial</title>
+<link href="https://yuuno.cc/articles/deno-first-trial"/>
+<id>deno-first-trial</id>
+<published>2020-05-20T18:45:54.484Z</published>
+<updated>2020-05-20T18:45:54.484Z</updated>
+<summary type="html">
+已经半年没有更新博客了。（给自己找一些不成文的借口）一方面在这个新冠的特殊时期还要双专业毕业，实属有
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Deno" scheme="https://yuuno.cc/tags/Deno"/>
+<category term="JavaScript" scheme="https://yuuno.cc/tags/JavaScript"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+</entry>
 <entry>
 <title>Diary: I, End of 2019</title>
 <link href="https://yuuno.cc/articles/diary-i-end-of-2019"/>

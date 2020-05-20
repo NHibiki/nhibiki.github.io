@@ -1,3 +1,4 @@
+https://yuuno.cc/articles/deno-first-trial
 https://yuuno.cc/articles/diary-i-end-of-2019
 https://yuuno.cc/articles/rust-the-first-attempt-to-ownership
 https://yuuno.cc/articles/rust-brief-intro-to-safe
@@ -33,9 +34,10 @@ https://yuuno.cc/tags/AudioStream
 https://yuuno.cc/tags/Music
 https://yuuno.cc/tags/JavaScript
 https://yuuno.cc/tags/DeepCopy
+https://yuuno.cc/tags/Deno
+https://yuuno.cc/tags/Server
 https://yuuno.cc/tags/Notes
 https://yuuno.cc/tags/Tools
-https://yuuno.cc/tags/Server
 https://yuuno.cc/tags/Electron
 https://yuuno.cc/tags/Git
 https://yuuno.cc/tags/Download
