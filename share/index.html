@@ -9,44 +9,46 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Slinkv4">
-
     <title>Slink Share</title>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.3.0/css/flat-ui.min.css" rel="stylesheet">
-    <link href="../slink/style.css" rel="stylesheet">
     <style>
-        #afterSubmit {
-            display: none;
+        html, body {
+            margin: 0; padding: 0;
+        }
+        #snipbar {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: none;
+            padding: 10px;
+            font-family: monospace;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 style="color:#4cccff;">Slinkv4 Share</h1>
-        <p class="small">A Powerful Realtime Share.</p>
-
-        <div class="innercont">
-            <form id="slinkform" method="POST">
-                <textarea id="snipbar" style="border-radius:1em;resize: none;" name="url" type="text" value=""
-                    placeholder="code" class="input form-control"></textarea>
-            </form>
-        </div>
-        <p class="foot">Slinkv4 Share Powered By
-            <a href="https://yuuno.cc">NHibiki</a>.</p>
-    </div>
-    <div id="snackbar" class="snackbar snackbar-hide">
-        <p></p>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js">
-    </script>
+    <textarea id="snipbar" type="text" value=""></textarea>
 </body>
 
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.6.min.js"></script>
 <script>
     (function () {
 
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function() {
+                var context = this, args = arguments;
+                var later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        };
+
+        let $ = x => document.querySelector(x);
         let id = Math.floor(Math.random() * 1e9);
         let channel = document.location.search
             .substr(1)
@@ -65,29 +67,29 @@
         pubnub.addListener({
             message: function (message) {
                 if (message.message.id == id) return;
-                $("#snipbar").val(message.message.data);
+                $("#snipbar").value = message.message.data;
             }
         });
         pubnub.subscribe({
             channels: [channel]
         });
 
-        $("#snipbar").on("input", $.debounce(150, () => {
+        $("#snipbar").addEventListener("input", debounce(() => {
             pubnub.publish({
                 channel,
                 message: {
                     id,
-                    data: $("#snipbar").val()
+                    data: $("#snipbar").value
                 }
             });
-        }));
+        }, 150));
 
         pubnub.history({
             channel,
             count: 1
         }, (status, response) => {
             if (response && response.messages && response.messages[0]) {
-                $("#snipbar").val(response.messages[0].entry.data);
+                $("#snipbar").value = response.messages[0].entry.data;
             }
         });
 
