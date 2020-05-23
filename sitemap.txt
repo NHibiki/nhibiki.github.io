@@ -1,3 +1,4 @@
+https://yuuno.cc/articles/multipass-trial
 https://yuuno.cc/articles/deno-first-trial
 https://yuuno.cc/articles/diary-i-end-of-2019
 https://yuuno.cc/articles/rust-the-first-attempt-to-ownership
@@ -45,6 +46,8 @@ https://yuuno.cc/tags/Nodejs
 https://yuuno.cc/tags/SSL
 https://yuuno.cc/tags/Links
 https://yuuno.cc/tags/CDN
+https://yuuno.cc/tags/Container
+https://yuuno.cc/tags/Ubuntu
 https://yuuno.cc/tags/Rust
 https://yuuno.cc/tags/Slink
 https://yuuno.cc/tags/Gentoo
