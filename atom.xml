@@ -4,12 +4,25 @@
 <icon>https://yuuno.cc//favicon.jpg</icon>
 <link href="https://yuuno.cc/atom.xml" rel="self"/>
 <link href="https://yuuno.cc/"/>
-<updated>2020-05-23T16:01:54.484Z</updated>
+<updated>2020-06-05T09:45:54.484Z</updated>
 <id>https://yuuno.cc/</id>
 <author>
 <name>Yuuno Hibiki</name>
 </author>
 <generator uri="https://github.com/NHibiki/ReSlice">ReSlice</generator>
+<entry>
+<title>Golang: Iterator Parameter Cheating</title>
+<link href="https://yuuno.cc/articles/golang-iter-cheat"/>
+<id>golang-iter-cheat</id>
+<published>2020-06-05T09:45:54.484Z</published>
+<updated>2020-06-05T09:45:54.484Z</updated>
+<summary type="html">
+前语,这篇文章没什么技术含量，仅仅是对自己的一个警示。对大多数阅读这篇文章的同学来说，本文讲述的问题
+</summary>
+<category term="Tech" scheme="https://yuuno.cc/categories/Tech"/>
+<category term="Golang" scheme="https://yuuno.cc/tags/Golang"/>
+<category term="Server" scheme="https://yuuno.cc/tags/Server"/>
+</entry>
 <entry>
 <title>Multipass: A light-weight VM helper</title>
 <link href="https://yuuno.cc/articles/multipass-trial"/>
