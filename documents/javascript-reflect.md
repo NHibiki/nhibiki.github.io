@@ -39,7 +39,7 @@ function refetch (value) {
 
 实现思路是这样的。
 
-JavaScript 存在 `muitable` 和 `immutable` 的两类变量，为了给变量设立全局可查找的 `identifier`，最高效的做法就是继承原本的数据类型并且增加一个 identifier 属性。这样，我们就可以通过变量独特的 `identifier` 来追回变量的名字，实现反射。
+JavaScript 存在 `mutable` 和 `immutable` 的两类变量，为了给变量设立全局可查找的 `identifier`，最高效的做法就是继承原本的数据类型并且增加一个 identifier 属性。这样，我们就可以通过变量独特的 `identifier` 来追回变量的名字，实现反射。
 
 使用方法如下：
 
